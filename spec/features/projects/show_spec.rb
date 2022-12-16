@@ -25,12 +25,18 @@ RSpec.describe 'Project Show Page' do
       visit "/projects/#{@news_chic.id}"
 
       expect(page).to have_content("#{@news_chic.name}")
-      expect(page).to have_content("#{@news_chic.material}")    
+      expect(page).to have_content("#{@news_chic.material}")
     end
 
-    it 'shows the nnumber of contestants on that project' do
+    it 'Displays the project theme' do
       visit "/projects/#{@news_chic.id}"
-save_and_open_page
+
+      expect(page).to have_content("#{@recycled_material_challenge.theme}")    
+    end
+
+    it 'Displays the nnumber of contestants on that project' do
+      visit "/projects/#{@news_chic.id}"
+
       expect(page).to have_content("Number of Contestants: 2")
     end
   end
