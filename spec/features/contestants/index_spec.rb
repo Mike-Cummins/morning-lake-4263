@@ -21,17 +21,33 @@ RSpec.describe 'Contestant Index' do
       ContestantProject.create(contestant_id: erin.id, project_id: boardfit.id)
 
       visit '/contestants'
-  
-      expect(page).to have_content(jay.name)
-      expect(page).to have_content(gretchen.name)
-      expect(page).to have_content(kentaro.name)
-      expect(page).to have_content(erin.name)
-      expect(page).to have_content(jay.projects[0].name)
-      expect(page).to have_content(gretchen.projects[0].name)
-      expect(page).to have_content(gretchen.projects[1].name)
-      expect(page).to have_content(kentaro.projects[0].name)
-      expect(page).to have_content(kentaro.projects[1].name)
-      expect(page).to have_content(erin.projects[0].name)
+      
+      within "#contestant_#{jay.id}" do
+        expect(page).to have_content(jay.name)
+        expect(page).to have_content(news_chic.name)
+        expect(page).to_not have_content(upholstery_tux.name)
+      end     
+
+      within "#contestant_#{gretchen.id}" do
+        expect(page).to have_content(gretchen.name)
+        expect(page).to have_content(news_chic.name)
+        expect(page).to have_content(upholstery_tux.name)
+        expect(page).to_not have_content(boardfit.name)
+      end
+
+      within "#contestant_#{kentaro.id}" do
+        expect(page).to have_content(kentaro.name)
+        expect(page).to have_content(boardfit.name)
+        expect(page).to have_content(upholstery_tux.name)
+        expect(page).to_not have_content(news_chic.name)
+      end
+
+      within "#contestant_#{erin.id}" do
+        expect(page).to have_content(erin.name)
+        expect(page).to have_content(boardfit.name)
+        expect(page).to_not have_content(upholstery_tux.name)
+        expect(page).to_not have_content(news_chic.name)
+      end
     end
   end
 end
